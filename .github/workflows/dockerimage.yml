@@ -3,12 +3,15 @@ name: ci
 on:
   push:
     branches:
-      - 'master'
+      - 'beta'
   workflow_dispatch:
   
 jobs:
   docker:
     runs-on: ubuntu-latest
+    env:
+      BUILD_VERSION: 1822
+      BUILD_SHA1SUM: c84341b409672d3617300a0348fc81ff21453433
     steps:
       -
         name: Checkout
@@ -33,3 +36,5 @@ jobs:
           platforms: linux/amd64,linux/arm64
           push: true
           tags: palashkulsh/mybb:latest
+          build-args: BUILD_AUTHORS="Kane 'kawaii' Valentine <kawaii@mybb.com>",BUILD_DATE=$(date -u +'%Y-%m-%dT%H:%M:%SZ'),BUILD_SHA1SUM=$BUILD_SHA1SUM,BUILD_VERSION=$BUILD_VERSION
+          
